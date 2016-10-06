@@ -18,5 +18,12 @@ angular.module('app').factory('BoardsService', ['Restangular', '_', function(Res
 		return Restangular.all('boards').post(boardData);
 	};
 
+	Restangular.extendModel("boards", function(model){
+		model.edit = function(data){
+			model.patch({board: data});
+		};
+		return model;
+	});
+
 	return obj;
 }]);

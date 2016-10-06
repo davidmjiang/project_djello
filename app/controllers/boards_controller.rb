@@ -24,6 +24,20 @@ class BoardsController < ApplicationController
 		end
 	end
 
+	def update
+		@board = Board.find(params[:id])
+		if @board.update(board_params)
+			respond_to do |format|
+				format.json{ render json: @board}
+			end
+		end
+	end
+
+	def destroy
+		@board = Board.find(params[:id])
+		@board.destroy
+	end
+
 	private
 	def board_params
 		params.require('board').permit(:title, :user_id)

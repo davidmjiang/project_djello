@@ -1,9 +1,9 @@
 "use strict";
-angular.module('app').controller('BoardsIndexCtrl', ["$scope", "BoardsService", "currentUser", function($scope, BoardsService, currentUser){
+angular.module('app').controller('BoardsIndexCtrl', ["$scope", "BoardsService", "currentUser", '$state', function($scope, BoardsService, currentUser, $state){
 
 	BoardsService.getBoards(currentUser).then(function(response){
-		$scope.boards = response;
-	});
+          $scope.boards = response;
+        });
 
 	$scope.createMode = false;
 
@@ -11,10 +11,7 @@ angular.module('app').controller('BoardsIndexCtrl', ["$scope", "BoardsService", 
 
 	$scope.createBoard = function(data){
 		BoardsService.create(data).then(function(response){
-			console.log(response);
-			BoardsService.getBoards(currentUser).then(function(response){
-				$scope.boards = response;
-			});
+			$state.go('boards.show',{id: response.id});
 		});
 	};
 
