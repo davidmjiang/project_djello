@@ -7,6 +7,10 @@ class BoardsController < ApplicationController
 	end
 
 	def show
+		@board = Board.find(params[:id])
+		respond_to do |format|
+			format.json{ render json: @board, include: :user}
+		end
 	end
 
 	def create

@@ -7,6 +7,10 @@ angular.module('app').factory('BoardsService', ['Restangular', '_', function(Res
 		return Restangular.all('boards').getList({user_id: user.id});
 	};
 
+	obj.getBoard = function(id){
+		return Restangular.one('boards', id).get();
+	};
+
 	obj.create = function(data){
 		var boardData = {
 			board: data

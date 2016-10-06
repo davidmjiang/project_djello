@@ -25,12 +25,13 @@ angular.module('app').config([
 ]);
 
 angular.module('app').config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider){
-	$urlRouterProvider.otherwise('/');
+	$urlRouterProvider.otherwise('/boards');
 
-	$stateProvider.state('boards', {
-		url: '/',
-		controller: 'BoardsIndexCtrl',
-		templateUrl: 'templates/boards/index.html',
+	$stateProvider
+  .state('boards',{
+    url: '/boards',
+    abstract: true,
+    template: "<div ui-view></div>",
 		resolve: {
 			currentUser: ['Auth', function(Auth){
             return Auth.currentUser()
@@ -38,7 +39,24 @@ angular.module('app').config(['$stateProvider', '$urlRouterProvider', function($
               return user;
             });
           }]
-		}
-	});
+		}  
+  })
+  .state('boards.index', {
+    url: '',
+    controller: 'BoardsIndexCtrl',
+    templateUrl: 'templates/boards/index.html'
+	})
+  .state('boards.show', {
+    url: '/:id',
+    templateUrl: 'templates/boards/show.html',
+    controller: 'BoardsShowCtrl',
+    resolve: {
+      thisBoard: ["$stateParams", "BoardsService", function($stateParams, BoardsService){
+        return BoardsService.getBoard(parseInt($stateParams.id)).then(function(response){
+          return response;
+        });
+      }]
+    }
+  });
 
 }]);
