@@ -57,9 +57,7 @@ angular.module('app').config(['$stateProvider', '$urlRouterProvider', function($
     controller: 'BoardsShowCtrl',
     resolve: {
       thisBoard: ["$stateParams", "BoardsService", function($stateParams, BoardsService){
-        return BoardsService.getBoard(parseInt($stateParams.id)).then(function(response){
-          return response;
-        });
+        return BoardsService.getBoard(parseInt($stateParams.id));
       }]
     }
   });

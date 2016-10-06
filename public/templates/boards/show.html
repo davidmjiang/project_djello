@@ -24,4 +24,25 @@
 		 <input type="submit" value="Create" class="btn btn-success" class="form-control" ng-click="createBoard(formData)">
 		</form>
 	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-xs-6 col-md-3" ng-repeat="list in lists">
+		<list-box list="list" lists="lists" board="board"></list-box>
+	</div>
+	
+	<div class="col-xs-6 col-md-3">
+		<div class="thumbnail">
+			<a><span ng-click="creatingList=!creatingList">Add a List</span></a>
+			<form ng-show="creatingList">
+				<label for="title">Title</label>
+				<input type="text" name="title" ng-model="listData.title" class="form-control" required>
+				<label for="description">Description</label>
+				<input type="text" name="description" ng-model="listData.description" class="form-control">
+				 <input type="submit" value="Create" class="btn btn-success" class="form-control" ng-click="createList(listData)">
+			</form>
+		</div>
+	</div>
+
 </div>

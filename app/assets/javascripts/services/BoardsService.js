@@ -8,7 +8,10 @@ angular.module('app').factory('BoardsService', ['Restangular', '_', function(Res
 	};
 
 	obj.getBoard = function(id){
-		return Restangular.one('boards', id).get();
+		return Restangular.one('boards', id).get().then(function(response){
+			Restangular.restangularizeCollection(null, response.lists, 'lists');
+			return response;
+		});
 	};
 
 	obj.create = function(data){
@@ -22,6 +25,13 @@ angular.module('app').factory('BoardsService', ['Restangular', '_', function(Res
 		model.edit = function(data){
 			model.patch({board: data});
 		};
+
+		model.refresh = function(){
+			return obj.getBoard(model.id).then(function(response){
+				return response;
+			});
+		};
+
 		return model;
 	});
 

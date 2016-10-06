@@ -9,7 +9,7 @@ class BoardsController < ApplicationController
 	def show
 		@board = Board.find(params[:id])
 		respond_to do |format|
-			format.json{ render json: @board, include: :user}
+			format.json{ render json: @board, include: [:user, :lists]}
 		end
 	end
 
