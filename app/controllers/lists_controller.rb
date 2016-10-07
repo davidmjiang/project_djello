@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
 	def index
-		@lists = List.all
+		@lists = List.where(board_id: params[:board_id])
 		respond_to do |format|
 			format.json{ render json: @lists}
 		end

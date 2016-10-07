@@ -21,6 +21,7 @@ angular.module('app').directive('editableField', [function(){
 				scope.editing = false;
 				var hash = {};
 				hash[scope.attr] = scope.text;
+				scope.resource[scope.attr] = scope.text;
 				scope.resource.edit(hash);
 			};
 			scope.cancel = function(){

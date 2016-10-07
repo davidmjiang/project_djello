@@ -1,7 +1,20 @@
 <div class="panel panel-default">
 <button type="button" class="close" aria-label="Close"><span class="glyphicon glyphicon-remove" ng-click="delete()"></span></button>
-  <div class="panel-body">
+  <div class="panel-heading">
 		<h3 editable-field resource="list" text="list.title" attr="'title'">{{list.title}}</h3>
 		<p editable-field resource="list" text="list.description" attr="'description'">{{list.description}}</p>
   </div>
+  <ul class="list-group">
+  	<li class="list-group-item" ng-repeat="card in cards" ng-click="openModal(card)">
+  		<p>{{card.title}}</p>
+  	</li>
+  	<li>
+			  <div class="panel-body" ng-show="createMode">
+			  	<textarea ng-model="cardData.title" required></textarea>
+			  </div>
+			  <a ng-click="creating()" ng-show="!createMode">Add a Card</a>
+			  <button ng-show="createMode" ng-click="createCard()" class="btn btn-success" ng-disabled="!cardData.title">Add</button>
+			</div>
+  	</li>
+  </ul>
 </div>
