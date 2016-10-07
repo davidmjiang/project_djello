@@ -1,8 +1,8 @@
 "use strict";
-angular.module('app').controller('BoardsShowCtrl', ["$scope", "BoardsService", "currentUser", "thisBoard", "$state", "ListService", function($scope, BoardsService, currentUser, thisBoard, $state, ListService){
+angular.module('app').controller('BoardsShowCtrl', ["$scope", "BoardsService", "currentUser", "thisBoard", "$state", "ListService", "_", function($scope, BoardsService, currentUser, thisBoard, $state, ListService, _){
 
 	BoardsService.getBoards(currentUser).then(function(response){
-          $scope.boards = response;
+          $scope.boards = _.filter(response, function(el){ return thisBoard.id !== el.id; } );
        });
 	$scope.board = thisBoard;
 

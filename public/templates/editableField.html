@@ -1,4 +1,4 @@
-<h3 ng-show="!editing" ng-click="enableEditing()">{{text}}</h3>
+<ng-transclude ng-show="!editing" ng-click="enableEditing()"></ng-transclude>
 		<form ng-show="editing">
 			<input type="text" ng-model="editableText">
 			<button class="btn btn-success" ng-click="save()">Save</button>

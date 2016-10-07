@@ -1,11 +1,14 @@
+//pass in the resource, the text and the attribute. this requires the resource to have an edit function
 "use strict";
 angular.module('app').directive('editableField', [function(){
 	return{
-		restrict: "E",
+		restrict: "AE",
 		templateUrl: "templates/editableField.html",
+		transclude: true,
 		scope: {
 			resource: "=",
-			text: "="
+			text: "=",
+			attr: "="
 		},
 		link: function(scope){
 			scope.editing = false;
@@ -16,7 +19,9 @@ angular.module('app').directive('editableField', [function(){
 			scope.save = function(){
 				scope.text = scope.editableText;
 				scope.editing = false;
-				scope.resource.edit({title: scope.text});
+				var hash = {};
+				hash[scope.attr] = scope.text;
+				scope.resource.edit(hash);
 			};
 			scope.cancel = function(){
 				scope.editing = false;

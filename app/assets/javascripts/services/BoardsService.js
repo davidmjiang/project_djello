@@ -1,5 +1,5 @@
 "use strict";
-angular.module('app').factory('BoardsService', ['Restangular', '_', function(Restangular, _){
+angular.module('app').factory('BoardsService', ['Restangular', '_', 'ListService', function(Restangular, _, ListService){
 
 	var obj = {};
 
