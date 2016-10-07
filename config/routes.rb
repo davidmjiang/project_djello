@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   	scope :v1 do
   		resources :boards
   		resources :lists
+      get 'cards/members', to: 'cards#members'
       resources :cards
+      resources :users
+      delete '/memberships', to: 'memberships#destroy'
+      resources :memberships
   	end
   end
 

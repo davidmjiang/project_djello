@@ -11,6 +11,15 @@
 	      </p>
 	      <a ng-click="markComplete()" ng-hide="card.completed">Mark Completed</a>
 	      <p ng-show="card.completed">Completed!</p>
+        <p>Members</p>
+        <ul>
+          <li ng-repeat="member in members">{{member.username}} <a ng-click="removeMember(member)">remove</a>
+          </li>
+        </ul>
+        <select ng-model="newMember">
+          <option value="{{user.id}}" ng-repeat="user in users">{{user.username}}</option>
+        </select>
+        <button class="btn btn-success" ng-click="addMember()">Add</button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>

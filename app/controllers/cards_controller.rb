@@ -31,6 +31,14 @@ class CardsController < ApplicationController
 		@card.destroy
 	end
 
+	def members
+		@card = Card.find(params[:id])
+		@members = @card.members
+		respond_to do |format|
+			format.json{ render json: @members }
+		end
+	end
+
 	private
 	def card_params
 		params.require('card').permit(:title, :description, :completed, :list_id)
