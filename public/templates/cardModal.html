@@ -9,6 +9,8 @@
 	      <p editable-field resource="card" text="description" attr="'description'">
 	        {{description || 'Enter description here'}}
 	      </p>
+	      <a ng-click="markComplete()" ng-hide="card.completed">Mark Completed</a>
+	      <p ng-show="card.completed">Completed!</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" ng-click="cancel()">Close</button>

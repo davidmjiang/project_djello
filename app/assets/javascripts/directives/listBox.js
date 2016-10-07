@@ -21,7 +21,7 @@ angular.module('app').directive('listBox', ['ListService', 'CardService', 'Modal
 			scope.createCard = function(){
 				CardService.create(scope.cardData).then(function(response){
 					scope.cards.push(response);
-					scope.cardData = {};
+					scope.cardData.title = "";
 					scope.createMode = false;
 				});
 			};

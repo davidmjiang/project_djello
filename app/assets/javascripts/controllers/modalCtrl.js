@@ -14,4 +14,9 @@ angular.module('app').controller('ModalCtrl', ["$scope", "card", "close", "$elem
 		close("Success!");
 	};
 
+	$scope.markComplete = function(){
+		$scope.card.completed = true;
+		$scope.card.edit({completed: true});
+	};
+
 }]);
