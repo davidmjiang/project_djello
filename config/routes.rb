@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :users
       delete '/memberships', to: 'memberships#destroy'
       resources :memberships
+      resources :activities
   	end
   end
 

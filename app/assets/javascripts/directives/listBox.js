@@ -1,12 +1,13 @@
 "use strict";
-angular.module('app').directive('listBox', ['ListService', 'CardService', 'ModalService', function(ListService, CardService, ModalService){
+angular.module('app').directive('listBox', ['ListService', 'CardService', 'ModalService', 'ActivityService', function(ListService, CardService, ModalService, ActivityService){
 	return{
 		restrict: "E",
 		templateUrl: "templates/listBox.html",
 		scope: {
 			list: "=",
 			lists: "=",
-			board: "="
+			board: "=",
+			user: "="
 		},
 		link: function(scope){
 			CardService.getCards(scope.list.id).then(function(response){
@@ -23,6 +24,8 @@ angular.module('app').directive('listBox', ['ListService', 'CardService', 'Modal
 					scope.cards.push(response);
 					scope.cardData.title = "";
 					scope.createMode = false;
+					var activity = scope.user.username+ " added this card to the " + scope.board.title + " board";
+					ActivityService.create(activity, response);
 				});
 			};
 			scope.openModal = function(card){

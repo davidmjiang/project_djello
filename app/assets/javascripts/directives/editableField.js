@@ -22,7 +22,7 @@ angular.module('app').directive('editableField', [function(){
 				var hash = {};
 				hash[scope.attr] = scope.text;
 				scope.resource[scope.attr] = scope.text;
-				scope.resource.edit(hash);
+				scope.resource.edit(hash, scope.attr, scope.text);
 			};
 			scope.cancel = function(){
 				scope.editing = false;

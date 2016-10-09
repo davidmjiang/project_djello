@@ -39,11 +39,6 @@ angular.module('app').config(['$stateProvider', '$urlRouterProvider', function($
               return user;
             });
           }]
-      // userBoards: ["currentUser", "BoardsService", function(currentUser, BoardsService){
-      //   return BoardsService.getBoards(currentUser).then(function(response){
-      //     return response;
-      //   });
-      //}]
 		}  
   })
   .state('boards.index', {

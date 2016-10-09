@@ -1,5 +1,5 @@
 "use strict";
-angular.module('app').controller('ModalCtrl', ["$scope", "card", "close", "$element", "UserService", "_", 'Auth', function($scope, card, close, $element, UserService, _, Auth){
+angular.module('app').controller('ModalCtrl', ["$scope", "card", "close", "$element", "UserService", "_", 'Auth', "ActivityService",function($scope, card, close, $element, UserService, _, Auth, ActivityService){
 
 	$scope.card = card;
 	$scope.title = card.title;
@@ -25,6 +25,20 @@ angular.module('app').controller('ModalCtrl', ["$scope", "card", "close", "$elem
 			});
 		});
 	});
+
+	ActivityService.getActivities(card).then(function(response){
+		$scope.activities = response;
+	});
+
+	// $scope.setupWatches = function(){
+	// 	$scope.$watch('card.title', function(){
+	// 		var text = $scope.currentUser.username + " changed the title of this card to '" + card.title + "'";
+	// 		ActivityService.create(text, card).then(function(response){
+	// 			$scope.activities.push(response);
+	// 		});
+	// 	});
+		
+	// };
 
 	$scope.addMember = function(){
 		UserService.addMember(card, $scope.newMember).then(function(response){

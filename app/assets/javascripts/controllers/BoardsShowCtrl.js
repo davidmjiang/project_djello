@@ -8,6 +8,8 @@ angular.module('app').controller('BoardsShowCtrl', ["$scope", "BoardsService", "
 
 	$scope.lists = $scope.board.lists;
 
+	$scope.user = currentUser;
+
 	//creating a new board
 
 	$scope.createMode = false;
