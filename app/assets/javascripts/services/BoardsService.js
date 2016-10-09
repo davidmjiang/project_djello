@@ -14,6 +14,10 @@ angular.module('app').factory('BoardsService', ['Restangular', '_', 'ListService
 		});
 	};
 
+	obj.getMemberBoards = function(user){
+		return Restangular.all('users').customGET('boards', {id: user.id});
+	};
+
 	obj.create = function(data){
 		var boardData = {
 			board: data

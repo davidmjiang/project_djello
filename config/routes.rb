@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   		resources :lists
       get 'cards/members', to: 'cards#members'
       resources :cards
+      get 'users/boards', to: 'users#boards'
       resources :users
       delete '/memberships', to: 'memberships#destroy'
       resources :memberships

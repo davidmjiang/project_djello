@@ -4,8 +4,8 @@
 		<h3 editable-field resource="list" text="list.title" attr="'title'">{{list.title}}</h3>
 		<p editable-field resource="list" text="list.description" attr="'description'">{{list.description}}</p>
   </div>
-  <ul class="list-group">
-  	<li class="list-group-item" ng-repeat="card in cards | filter: {completed: false}" ng-click="openModal(card)">
+  <ul class="list-group" drop-container>
+  	<li class="list-group-item" ng-repeat="card in cards | filter: {completed: false}" ng-click="openModal(card)" drag-container="true">
   		<p>{{card.title}}</p>
   	</li>
   	<li>

@@ -6,6 +6,11 @@
 			{{board.title}}
 		</a>
 	</div>
+	<div class="col-xs-6 col-md-3" ng-repeat="mBoard in memberBoards">
+		<a class="thumbnail" ui-sref="boards.show({id: {{mBoard.id}} })">
+			{{mBoard.title}}
+		</a>
+	</div>
 	<div class="col-xs-6 col-md-3">
 		<div class="thumbnail">
 			<a><span ng-click="createMode=!createMode">Create a New Board</span></a>

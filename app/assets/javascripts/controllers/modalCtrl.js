@@ -1,5 +1,5 @@
 "use strict";
-angular.module('app').controller('ModalCtrl', ["$scope", "card", "close", "$element", "UserService", "_", function($scope, card, close, $element, UserService, _){
+angular.module('app').controller('ModalCtrl', ["$scope", "card", "close", "$element", "UserService", "_", 'Auth', function($scope, card, close, $element, UserService, _, Auth){
 
 	$scope.card = card;
 	$scope.title = card.title;
@@ -14,17 +14,17 @@ angular.module('app').controller('ModalCtrl', ["$scope", "card", "close", "$elem
 		UserService.getUsers().then(function(response){
 			//filter out the current user and users who are already members
 			$scope.users = response;
+			Auth.currentUser().then(function(user){
+				_.remove($scope.users, function(el){
+					return el.id === user.id;
+				});
 			_.remove($scope.users, function(el){
 				return _.indexOf($scope.memberIds, el.id) !== -1;
 			});
+				
+			});
 		});
 	});
-
-	// $scope.notMember = function(){
-	// 	return function(user){
-	// 		!_.includes($scope.memberIds, user.id);
-	// 	};
-	// };
 
 	$scope.addMember = function(){
 		UserService.addMember(card, $scope.newMember).then(function(response){

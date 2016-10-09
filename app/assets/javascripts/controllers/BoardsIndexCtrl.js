@@ -4,6 +4,10 @@ angular.module('app').controller('BoardsIndexCtrl', ["$scope", "BoardsService", 
 	BoardsService.getBoards(currentUser).then(function(response){
           $scope.boards = response;
         });
+	//get boards that current user is a member of
+	BoardsService.getMemberBoards(currentUser).then(function(response){
+		$scope.memberBoards = response;
+	});
 
 	$scope.createMode = false;
 
