@@ -5,7 +5,7 @@
 		<p editable-field resource="list" text="list.description" attr="'description'">{{list.description}}</p>
   </div>
   <ul class="list-group" drop-container>
-  	<li class="list-group-item" ng-repeat="card in cards | filter: {completed: false}" ng-click="openModal(card)" drag-container="true">
+  	<li class="list-group-item" ng-repeat="card in cards | filter: {completed: false}" ng-click="openModal(card)">
   		<p>{{card.title}}</p>
   	</li>
   	<li class="no-dot">
