@@ -1,4 +1,4 @@
-<h3><span class="glyphicon glyphicon-th-large"></span> Personal Boards</h3>
+<h3 class="white"><span class="glyphicon glyphicon-th-large"></span> Personal Boards</h3>
 
 <div class="row">
 	<div class="col-xs-6 col-md-3" ng-repeat="board in boards">
@@ -13,7 +13,7 @@
 	</div>
 </div>
 
-<h3><span class="glyphicon glyphicon-asterisk"></span> Shared Boards</h3>
+<h3 class="white"><span class="glyphicon glyphicon-asterisk"></span> Shared Boards</h3>
 <div class="row">
 	<div class="col-xs-6 col-md-3" ng-repeat="mBoard in memberBoards">
 		<a class="thumbnail" ui-sref="boards.show({id: {{mBoard.id}} })">

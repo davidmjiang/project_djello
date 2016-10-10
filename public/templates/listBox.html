@@ -8,12 +8,13 @@
   	<li class="list-group-item" ng-repeat="card in cards | filter: {completed: false}" ng-click="openModal(card)" drag-container="true">
   		<p>{{card.title}}</p>
   	</li>
-  	<li>
+  	<li class="no-dot">
 			  <div class="panel-body" ng-show="createMode">
 			  	<textarea ng-model="cardData.title" required></textarea>
 			  </div>
 			  <a ng-click="creating()" ng-show="!createMode">Add a Card</a>
 			  <button ng-show="createMode" ng-click="createCard()" class="btn btn-success" ng-disabled="!cardData.title">Add</button>
+        <button ng-show="createMode" ng-click="createMode = false" class="btn btn-default">Cancel</button>
 			</div>
   	</li>
   </ul>
