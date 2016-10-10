@@ -19,6 +19,9 @@ angular.module('app').factory('ActivityService', ['Restangular', function(Restan
 	obj.create = function(text, card){
 		var activityData = {text: text, card_id: card.id};
 		Restangular.all("activities").post({activity: activityData}).then(function(response){
+			if(!_activities[card.id]){
+				_activities[card.id] = [];
+			}
 			_activities[card.id].push(response);
 		});
 	};
