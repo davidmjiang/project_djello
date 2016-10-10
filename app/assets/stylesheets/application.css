@@ -30,12 +30,20 @@
 	color: white;
 }
 
+.white a{
+	color: white;
+}
+
 .editable{
 	position: absolute;
 	z-index: 10;
 }
 
 .editable input{
+	color: black;
+}
+
+.field input{
 	color: black;
 }
 
