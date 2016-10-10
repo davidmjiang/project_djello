@@ -24,7 +24,7 @@
         <hr>
         <p>Activity</p>
         <ul>
-          <li ng-repeat="activity in activities">{{activity.text}} on {{activity.created_at | date}}</li>
+          <li ng-repeat="activity in activities | orderBy: '-created_at'">{{activity.text}} on {{activity.created_at | date}}</li>
         </ul>
       </div>
       <div class="modal-footer">

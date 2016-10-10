@@ -38,7 +38,13 @@ angular.module('app').config(['$stateProvider', '$urlRouterProvider', function($
             .then(function(user){
               return user;
             });
-          }]
+          }],
+      activities: ["ActivityService", function(ActivityService){
+        ActivityService.getAll();
+      }],
+      users: ["UserService", function(UserService){
+        UserService.getUsers();
+      }]
 		}  
   })
   .state('boards.index', {

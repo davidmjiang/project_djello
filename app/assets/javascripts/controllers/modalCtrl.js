@@ -5,40 +5,29 @@ angular.module('app').controller('ModalCtrl', ["$scope", "card", "close", "$elem
 	$scope.title = card.title;
 	$scope.description = card.description;
 	$scope.newMember = "Choose a member";
+	$scope.userHash = UserService.all();
 
 	UserService.getMembers(card).then(function(response){
 		$scope.members = response;
 		$scope.memberIds = _.map($scope.members, function(el){
 			return el.id;
 		});
-		UserService.getUsers().then(function(response){
-			//filter out the current user and users who are already members
-			$scope.users = response;
-			Auth.currentUser().then(function(user){
-				_.remove($scope.users, function(el){
-					return el.id === user.id;
-				});
+		$scope.users = _.values($scope.userHash);
+
+		Auth.currentUser().then(function(user){
+			$scope.currentUser = user;
 			_.remove($scope.users, function(el){
-				return _.indexOf($scope.memberIds, el.id) !== -1;
+				return el.id === user.id;
 			});
-				
-			});
+		_.remove($scope.users, function(el){
+			return _.indexOf($scope.memberIds, el.id) !== -1;
 		});
-	});
-
-	ActivityService.getActivities(card).then(function(response){
-		$scope.activities = response;
-	});
-
-	// $scope.setupWatches = function(){
-	// 	$scope.$watch('card.title', function(){
-	// 		var text = $scope.currentUser.username + " changed the title of this card to '" + card.title + "'";
-	// 		ActivityService.create(text, card).then(function(response){
-	// 			$scope.activities.push(response);
-	// 		});
-	// 	});
+			
+		});
 		
-	// };
+	});
+
+	$scope.activities = ActivityService.activities()[card.id];
 
 	$scope.addMember = function(){
 		UserService.addMember(card, $scope.newMember).then(function(response){
@@ -47,6 +36,9 @@ angular.module('app').controller('ModalCtrl', ["$scope", "card", "close", "$elem
 				return el.id === response.id;
 			});
 			$scope.memberIds.push(response.id);
+			//add to activity that new member was added
+			var text = $scope.currentUser.username + " added " + $scope.userHash[$scope.newMember].username + " as a member of this card";
+			ActivityService.create(text, card);
 		});
 	};
 
@@ -60,6 +52,9 @@ angular.module('app').controller('ModalCtrl', ["$scope", "card", "close", "$elem
 			_.remove($scope.memberIds, function(el){
 				return el === member.id;
 			});
+			//add to activity
+			var text = $scope.currentUser.username + " removed " + member.username + " from this card";
+			ActivityService.create(text, card);
 		});
 	};
 
@@ -74,7 +69,7 @@ angular.module('app').controller('ModalCtrl', ["$scope", "card", "close", "$elem
 
 	$scope.markComplete = function(){
 		$scope.card.completed = true;
-		$scope.card.edit({completed: true});
+		$scope.card.edit({completed: true}, "status", "completed");
 	};
 
 }]);

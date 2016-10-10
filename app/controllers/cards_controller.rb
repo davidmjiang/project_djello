@@ -1,6 +1,7 @@
 class CardsController < ApplicationController
 	def index
-		@cards = Card.where(list_id: params[:list_id])
+		@cards = Card.all
+		@cards = @cards.where(list_id: params[:list_id]) if params[:list_id]
 		respond_to do |format|
 			format.json{ render json: @cards }
 		end

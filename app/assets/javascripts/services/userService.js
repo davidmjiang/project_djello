@@ -3,8 +3,18 @@ angular.module('app').factory('UserService', ['Restangular', function(Restangula
 
 	var obj = {};
 
+	var _users = {};
+
+	obj.all = function(){
+		return _users;
+	};
+
 	obj.getUsers = function(){
-		return Restangular.all('users').getList();
+		Restangular.all('users').getList().then(function(users){
+			users.forEach(function(user){
+				_users[user.id] = user;
+			});
+		});
 	};
 
 	obj.addMember = function(card, userId){
