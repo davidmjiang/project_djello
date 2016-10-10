@@ -1,5 +1,5 @@
 "use strict";
-angular.module('app').controller('BoardsShowCtrl', ["$scope", "BoardsService", "currentUser", "thisBoard", "$state", "ListService", "_", function($scope, BoardsService, currentUser, thisBoard, $state, ListService, _){
+angular.module('app').controller('BoardsShowCtrl', ["$scope", "BoardsService", "currentUser", "thisBoard", "$state", "ListService", "_", "ModalService", function($scope, BoardsService, currentUser, thisBoard, $state, ListService, _, ModalService){
 
 	BoardsService.getBoards(currentUser).then(function(response){
           $scope.boards = _.filter(response, function(el){ return thisBoard.id !== el.id; } );
@@ -23,11 +23,34 @@ angular.module('app').controller('BoardsShowCtrl', ["$scope", "BoardsService", "
 	};
 
 	//deleting the board
-
 	$scope.delete = function(){
-		$scope.board.remove().then(function(){
-			$state.go('boards.index');
-		});
+		ModalService.showModal({
+					templateUrl: "templates/deleteModal.html",
+					controller: "DeleteModalCtrl",
+					inputs: {
+						board: $scope.board
+					}
+				}).then(function(modal){
+					modal.element.modal();
+					modal.close.then(function(result){
+						console.log(result);
+					});
+				});
+	};
+
+	$scope.create = function(){
+		ModalService.showModal({
+					templateUrl: "templates/createModal.html",
+					controller: "CreateModalCtrl",
+					inputs: {
+						user: $scope.user
+					}
+				}).then(function(modal){
+					modal.element.modal();
+					modal.close.then(function(result){
+						console.log(result);
+					});
+				});
 	};
 
 	//for creating a new list
@@ -43,8 +66,4 @@ angular.module('app').controller('BoardsShowCtrl', ["$scope", "BoardsService", "
 		});
 	};
 
-	//redirect if currentUser is not the user of the board
-	if(currentUser.id !== thisBoard.user.id){
-		$state.go('boards.index');	
-	}
 }]);

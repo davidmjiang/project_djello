@@ -1,6 +1,6 @@
 class BoardsController < ApplicationController
 	def index
-		@boards = Board.all
+		@boards = Board.all.where(user_id: params[:user_id])
 		respond_to do |format|
 			format.json{ render json: @boards}
 		end

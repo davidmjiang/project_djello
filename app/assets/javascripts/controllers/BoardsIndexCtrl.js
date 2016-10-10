@@ -1,5 +1,5 @@
 "use strict";
-angular.module('app').controller('BoardsIndexCtrl', ["$scope", "BoardsService", "currentUser", '$state', function($scope, BoardsService, currentUser, $state){
+angular.module('app').controller('BoardsIndexCtrl', ["$scope", "BoardsService", "currentUser", '$state', "ModalService", function($scope, BoardsService, currentUser, $state, ModalService){
 
 	BoardsService.getBoards(currentUser).then(function(response){
           $scope.boards = response;
@@ -9,14 +9,19 @@ angular.module('app').controller('BoardsIndexCtrl', ["$scope", "BoardsService", 
 		$scope.memberBoards = response;
 	});
 
-	$scope.createMode = false;
-
-	$scope.formData = {user_id: currentUser.id};
-
-	$scope.createBoard = function(data){
-		BoardsService.create(data).then(function(response){
-			$state.go('boards.show',{id: response.id});
-		});
-	};
+	$scope.create = function(){
+		ModalService.showModal({
+					templateUrl: "templates/createModal.html",
+					controller: "CreateModalCtrl",
+					inputs: {
+						user: currentUser
+					}
+				}).then(function(modal){
+					modal.element.modal();
+					modal.close.then(function(result){
+						console.log(result);
+					});
+				});
+	};	
 
 }]);
